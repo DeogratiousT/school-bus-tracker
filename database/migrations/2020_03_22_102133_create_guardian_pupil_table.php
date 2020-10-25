@@ -20,7 +20,7 @@ class CreateGuardianPupilTable extends Migration
             $table->timestamps();
 
             $table->foreign('pupil_id')->references('id')->on('pupils')->onDelete('cascade');
-            $table->foreign('guardian_id')->references('id')->on('guardians')->onDelete('cascade');
+            $table->foreign('guardian_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

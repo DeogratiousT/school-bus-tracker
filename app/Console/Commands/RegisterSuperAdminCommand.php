@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\User;
+use App\Role;
+use Carbon\Carbon;
 
 use Illuminate\Console\Command;
 
@@ -13,7 +15,7 @@ class RegisterSuperAdminCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'register:super-admin';
+    protected $signature = 'admin:register';
 
     /**
      * The console command description.
@@ -48,117 +50,118 @@ class RegisterSuperAdminCommand extends Command
      */
     public function handle()
     {
-        $details = $this->getDetails();
 
-        $admin = $this->user->createSuperAdmin($details);
+        if (! Role::find(1)) {
+            $this->error('Role definitions have not been run.
+            please update the role definitions first using  php artisan roles:update command');
+            return;
+        }
 
-        $this->display($admin);
+        $this->inputAdmin();
+
     }
 
     /**
-     * Ask for admin details.
-     *
-     * @return array
-     */
-    private function getDetails() : array
-    {
-        $details['name'] = $this->ask('Name');
-        $details['email'] = $this->ask('Email');
-
-        while(! $this->isValidEmail($details['email'])){
-            $this->error('Email is invalid');
-            $details['email'] = $this->ask('Email');
-        }
-
-        $details['password'] = $this->secret('Password');
-
-        while (! $this->isRequiredLength($details['password'])) {
-            $this->error('Password must be more that eight characters');
-            $details['password'] = $this->secret('Password');
-        }
-
-        $details['confirm_password'] = $this->secret('Confirm password');
-            
-        while (! $this->isMatch($details['password'], $details['confirm_password'])) {
-            $this->error('Password and Confirm password do not match');
-
-            $details['password'] = $this->secret('Enter new Password');
-
-            while (! $this->isRequiredLength($details['password'])) {
-                $this->error('Password must be more that six characters');
-                $details['password'] = $this->secret('Enter new Password');
-            }
-
-            $details['confirm_password'] = $this->secret('Confirm password');
-        }
-
-        return $details;
-    }
-
-    /**
-     * Display created admin.
-     *
-     * @param array $admin
+     * Input and verify super admin details
+     * 
      * @return void
      */
-    private function display(User $admin) : void
+
+    private function inputAdmin()
     {
-        $headers = ['Name', 'Email', 'Super admin'];
 
-        $fields = [
-            'Name' => $admin->name,
-            'email' => $admin->email,
-            'admin' => $admin->isSuperAdmin()
-        ];
+       $name = $this->ask('Enter full name');
+       $email = $this->ask('Enter the admin Email address');
 
-        $this->info('Super admin created');
-        $this->table($headers, [$fields]);
+       while(! $this->isValidEmail($email)){
+           $this->error('Email is invalid');
+           $email = $this->ask('Email the admin Email address again');
+       }
+
+       $password = $this->secret('Enter the admin\'s password?');
+
+       while (! $this->isRequiredLength($password)) {
+           $this->error('Password must be more that eight characters');
+           $password = $this->secret('Enter the admin\'s password?');
+       }
+
+       $confirmPassword = $this->secret('Confirm the admin\'s password?');
+           
+       while (! $this->isMatch($password, $confirmPassword)) {
+           $this->error('Password and Confirm password do not match');
+
+           $password = $this->secret('Enter new admin\'s password?');
+
+           while (! $this->isRequiredLength($password)) {
+               $this->error('Password must be more that six characters');
+               $password = $this->secret('Enter new admin\'s password?');
+           }
+
+           $confirmPassword = $this->secret('Confirm the admin\'s password?');
+       }
+
+       $user = new User();
+       $user->name = $name;
+       $user->email = $email;
+       $user->role_id = Role::where('slug','administrator')->pluck('id')->first();
+       $user->email_verified_at = Carbon::now();
+       $user->password = bcrypt($password);
+       $user->save();
+
+       $this->display($user);
+
     }
 
-    /**
-     * Check if email is valid
-     *
-     * @param string $email
-     * @return boolean
-     */
-    private function isValidEmail(string $email) :bool
-    {
-        return filter_var($email, FILTER_VALIDATE_EMAIL);
-    }
+   /**
+    * Dispaly the registered Admin details
+    * 
+    * @return table
+    */
 
-    /**
-     * Check if password is valid
-     *
-     * @param string $password
-     * @param string $confirmPassword
-     * @return boolean
-     */
-    // private function isValidPassword(string $password, string $confirmPassword) : bool
-    // {
-    //     return $this->isRequiredLength($password) &&
-    //     $this->isMatch($password, $confirmPassword);
-    // }
+   private function display(User $admin) : void
+   {
+       $headers = ['Name', 'Email'];
 
-    /**
-     * Check if password and confirm password matches.
-     *
-     * @param string $password
-     * @param string $confirmPassword
-     * @return bool
-     */
-    private function isMatch(string $password, string $confirmPassword) : bool
-    {
-        return $password === $confirmPassword;
-    }
+       $fields = [
+           'Name' => $admin->name,
+           'email' => $admin->email
+       ];
 
-    /**
-     * Checks if password is longer than eight characters.
-     *
-     * @param string $password
-     * @return bool
-     */
-    private function isRequiredLength(string $password) : bool
-    {
-        return strlen($password) > 8;
-    }
+       $this->info('Super admin created successfully');
+       $this->table($headers, [$fields]);
+   }
+
+   /**
+    * Check if email is valid
+    *
+    * @param string $email
+    * @return boolean
+    */
+   private function isValidEmail(string $email) :bool
+   {
+       return filter_var($email, FILTER_VALIDATE_EMAIL);
+   }
+
+   /**
+    * Check if password and confirm password matches.
+    *
+    * @param string $password
+    * @param string $confirmPassword
+    * @return bool
+    */
+   private function isMatch(string $password, string $confirmPassword) : bool
+   {
+       return $password === $confirmPassword;
+   }
+
+   /**
+    * Checks if password is longer than eight characters.
+    *
+    * @param string $password
+    * @return bool
+    */
+   private function isRequiredLength(string $password) : bool
+   {
+       return strlen($password) > 8;
+   }
 }

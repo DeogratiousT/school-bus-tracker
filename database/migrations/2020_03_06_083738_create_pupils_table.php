@@ -18,6 +18,9 @@ class CreatePupilsTable extends Migration
             $table->string('name');
             $table->integer('admissionNo');
             $table->string('grade');
+            $table->string('gender');
+            $table->integer('age');
+            $table->string('disabilities');
             $table->timestamps();
         });
     }
