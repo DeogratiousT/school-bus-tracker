@@ -16,6 +16,7 @@ Auth::routes(['verify' => true]);
 Route::middleware(['verified'])->group(function () {
 
     Route::get('pass-set', 'PassSetController@index')->name('pass-set')->middleware('pass.set');
+    Route::post('pass-set/update', 'PassSetController@update')->name('pass-set-update')->middleware('pass.set');
 
     Route::get('/', 'HomeController@index')->name('home')->middleware('pass.change');
 
