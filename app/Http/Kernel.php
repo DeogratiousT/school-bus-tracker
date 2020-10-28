@@ -60,6 +60,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'pass.change' => \App\Http\Middleware\IfPasswordChange::class,
+        'pass.set' => \App\Http\Middleware\IfPasswordSet::class,
     ];
 
     /**

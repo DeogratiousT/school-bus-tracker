@@ -21,7 +21,7 @@
 
     {{-- my Container --}}
     <div class="container">                            
-        <form action="{{ route('parents.store') }}" method="POST">
+        <form action="{{ route('register') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="name">Full Name</label>

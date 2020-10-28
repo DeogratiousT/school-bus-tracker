@@ -15,7 +15,9 @@ Auth::routes(['verify' => true]);
 
 Route::middleware(['verified'])->group(function () {
 
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('pass-set', 'PassSetController@index')->name('pass-set')->middleware('pass.set');
+
+    Route::get('/', 'HomeController@index')->name('home')->middleware('pass.change');
 
     Route::resource('pupils', 'PupilController');
     Route::resource('parents', 'GuardianController');

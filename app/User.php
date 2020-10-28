@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail; 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -16,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'nationalId', 'role',
+        'name', 'email', 'password', 'phone', 'nationalId', 'role_id',
     ];
 
     /**
@@ -38,6 +39,20 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * Check if Default Password is still in Use
+     * 
+     * @return bool
+     */
+    public function is_default_password()
+    {
+        if (Hash::check('password', $this->password)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * create a role relationship
      * 
      * @return belongsTo relationship
@@ -47,49 +62,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\Role');
     }
 
-    /**
-     * Checks if user is a super admin
-     *
-     * @return boolean
-     */
-    public function isSuperAdmin() : bool
-    {
-        return (bool) $this->is_super_admin;
-    }
-
-    /**
-     * Create admin.
-     *
-     * @param array $details
-     * @return array
-     */
-    public function createSuperAdmin(array $details) : self
-    {
-        $user = new self($details);
-
-        if (! $this->superAdminExists()) {
-            $user->is_super_admin = 1;
-        }
-
-        $user->save();
-
-        return $user;
-    }
-
-    /**
-     * Checks if super admin exists
-     *
-     * @return integer
-     */
-    public function superAdminExists() : int
-    {
-        return self::where('is_super_admin', 1)->count();
-    
-    }
-
     public function pupils()
     {
-        while ($this->role == 'parent') {
+        while ($this->role_id == '2') {
             return $this->belongsToMany('App\Pupil','guardian_pupil', 'guardian_id', 'pupil_id');
         }
 
