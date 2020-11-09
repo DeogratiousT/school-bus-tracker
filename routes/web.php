@@ -32,5 +32,7 @@ Route::middleware(['verified'])->group(function () {
     Route::post('pupils/{id}/increment-grade','GradeController@incrementGrade')->name('increment-grade');
     Route::post('pupils/{id}/decrement-grade', 'GradeController@decrementGrade')->name('decrement-grade');
 
+    Route::resource('vehicles','VehicleController');
+
 });
 

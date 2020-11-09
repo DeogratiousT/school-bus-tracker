@@ -70,4 +70,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return back()->with("error","you are ".$this->role);
     }
+
+     public function vehicle()
+     {
+         return $this->belongsTo('App\Vehicle');
+     }
 }

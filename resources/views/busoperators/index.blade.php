@@ -31,8 +31,8 @@
                     <thead class="thead-light">
                         <tr>
                             <th>Name</th>
+                            <th>Email</th>
                             <th>Phone</th>
-                            <th>Bus No</th>
                             <th>National Id</th>
                             <th style="width: 85px;">Action</th>
                         </tr>
@@ -50,8 +50,8 @@
                         ajax: "{{ route('busoperators.index') }}",
                         columns: [
                             { name: 'name' },
+                            { name: 'email'},
                             { name: 'phone' },
-                            { name: 'busNo' },
                             { name: 'nationalId' },
                             { name: 'action', orderable: false, searchable: false, className: "table-action" },
                         ],

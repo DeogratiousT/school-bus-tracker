@@ -63,6 +63,8 @@
                 @endif
             </div>
 
+            <input type="hidden" name="role" value="2">
+
             <div class="form-group mb-0 text-center">
                 <button class="btn btn-primary btn-block" type="submit">
                     <i class="mdi mdi-content-save"></i> Save and Continue 

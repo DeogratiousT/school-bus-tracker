@@ -99,14 +99,27 @@ class PupilController extends Controller
     public function update(Request $request, $id)
     {
         $pupil = Pupil::find($id);
-        $pupil->update($request->validate([
+        $request->validate([
             'name' => 'required',
-            'admissionNo' => 'required|unique:pupils,admissionNo',
+            'admissionNo' => 'nullable',
             'grade' => 'required',
             'gender' => 'required',
             'age' => 'required',
             'disabilities' => 'required'
-        ]));
+        ]);
+
+        $pupil->name = $request->name;
+
+        if ($pupil->admissionNo != $request->admissionNo) {
+            $pupil->admissionNo = $request->admissionNo;            
+        }
+
+        $pupil->grade = $request->grade;
+        $pupil->gender = $request->gender;
+        $pupil->age = $request->age;
+        $pupil->disabilities = $request->disabilities;
+
+        $pupil->save();
          
         return redirect()->route('pupils.index')->with('success', $request->name.' details updated');
     }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\GuardianPupil;
 use App\Pupil;
-use App\Guardian;
+use App\User;
 use DB;
 
 class GuardianPupilController extends Controller
@@ -21,7 +21,7 @@ class GuardianPupilController extends Controller
     }
 
     public function showGuardian($id){
-        $guardian = Guardian::find($id);
+        $guardian = User::find($id);
         return view('guardians.linkpupil',['guardian'=> $guardian]);
     }
 

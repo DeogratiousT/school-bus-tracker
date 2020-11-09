@@ -31,7 +31,6 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
-
     /**
      * Create a new controller instance.
      *
@@ -55,7 +54,7 @@ class RegisterController extends Controller
             'phone' => ['nullable'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'nationalId' => ['nullable', 'string', 'min:5'],
-            // 'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'role' => ['required'],
         ]);
     }
 
@@ -73,6 +72,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'nationalId' => $data['nationalId'],
             'password' => Hash::make('password'),
+            'role_id' => $data['role']
         ]);
     }
 
@@ -90,7 +90,18 @@ class RegisterController extends Controller
 
         // $this->guard()->login($user);
 
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+        // return $this->registered($request, $user)
+        //                 ?: redirect($this->redirectPath());
+
+        if ($request->role == "2") {
+            return $this->registered($request, $user)
+                ?: redirect()->route('parents.index')->with('success','Parent Created');
+        }
+
+        if ($request->role == "3") {
+            return $this->registered($request, $user)
+                ?: redirect()->route('busoperators.index')->with('success','Bus Operator Created');
+        }
+
     }
 }

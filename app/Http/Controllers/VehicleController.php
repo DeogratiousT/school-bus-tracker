@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Vehicle;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Freshbitsweb\Laratables\Laratables;
-use App\Laratables\BusoperatorsLaratables;
+use App\Laratables\VehiclesLaratables;
 
-class BusoperatorController extends Controller
-{
-
+class VehicleController extends Controller
+{    
     /**
      * Create a new controller instance.
      *
@@ -28,9 +28,9 @@ class BusoperatorController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            return Laratables::recordsOf(User::class, BusoperatorsLaratables::class);
+            return Laratables::recordsOf(Vehicle::class, VehiclesLaratables::class);
         }
-        return view('busoperators.index');
+        return view('vehicles.index');
     }
 
     /**
@@ -40,7 +40,7 @@ class BusoperatorController extends Controller
      */
     public function create()
     {
-        return view('busoperators.create');
+        return view('vehicles.create');
     }
 
     /**
@@ -51,62 +51,51 @@ class BusoperatorController extends Controller
      */
     public function store(Request $request)
     {
-        // 
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Busoperator  $busoperator
+     * @param  \App\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Vehicle $vehicle)
     {
-        $busoperator = User::find($id);
-        return view('busoperators.show',['busoperator'=> $busoperator]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Busoperator  $busoperator
+     * @param  \App\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $busoperator)
+    public function edit(Vehicle $vehicle)
     {
-        return view('busoperators.edit', ['busoperator'=>$busoperator]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Busoperator  $busoperator
+     * @param  \App\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Vehicle $vehicle)
     {
-        $busoperator = User::find($id);
-        $busoperator->update($request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'nationalId' => 'required',
-        ]));
-
-        return redirect()->route('busoperators.show',['busoperator' => $busoperator])->with('success',$request->name.' details updated');
+        //
     }
-    
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Busoperator  $busoperator
+     * @param  \App\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $busoperator)
+    public function destroy(Vehicle $vehicle)
     {
-        $busoperator->delete();
-        return redirect()->route('busoperators.index')->with('success', 'Deleted Successfully');
+        //
     }
 }

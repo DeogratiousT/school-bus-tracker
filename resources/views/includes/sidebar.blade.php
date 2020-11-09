@@ -110,6 +110,13 @@
                 <span> Bus Operators </span>
             </a>
         </li>
+
+        <li class="side-nav-item">
+            <a href="{{ route('vehicles.index') }}" class="side-nav-link">
+                <i class="mdi mdi-bus"></i>
+                <span> Vehicles </span>
+            </a>
+        </li>
         
     </ul>
 
