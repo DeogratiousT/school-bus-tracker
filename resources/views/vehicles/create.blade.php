@@ -48,7 +48,7 @@
                         {{ $errors->first('plateNo') }}
                     </span>
                 @endif
-                </div>
+            </div>
 
             <div class="form-group">
                 <label for="capacity">Capacity</label>
@@ -59,6 +59,21 @@
                     </span>
                 @endif
             </div>
+
+            <div class="form-group">
+                <label for="driver">Driver</label>
+                <select class="form-control {{ $errors->has('driver') ? ' is-invalid' : '' }}" name="driver" id="driver">
+                    @foreach ($operators as $operator)
+                        <option value="{{ $operator->name }}">{{ $operator->name }}</option> 
+                    @endforeach
+                </select>
+                @if ($errors->has('driver'))
+                    <span class="invalid-feedback" role="alert">
+                        {{ $errors->first('driver') }}
+                    </span>
+                @endif
+            </div>
+    
 
             <div class="form-group mb-0 text-center">
                 <button class="btn btn-primary btn-block" type="submit">

@@ -18,8 +18,8 @@ class CreateVehiclesTable extends Migration
             $table->string('type');
             $table->string('plateNo');
             $table->integer('capacity');
-            $table->integer('driver_id');
-            $table->integer('assistant_id');
+            $table->integer('driver_id')->nullable();
+            $table->integer('assistant_id')->nullable();
             $table->timestamps();            
         });
     }

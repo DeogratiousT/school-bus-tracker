@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Freshbitsweb\Laratables\Laratables;
 use App\Laratables\VehiclesLaratables;
+use App\User;
 
 class VehicleController extends Controller
 {    
@@ -40,7 +41,8 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('vehicles.create');
+        $operators = User::where('role_id','3')->get();
+        return view('vehicles.create',['operators'=>$operators]);
     }
 
     /**
@@ -51,7 +53,15 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Vehicle::create($request->validate([
+            'type' => 'required',
+            'plateNo' => 'required',
+            'capacity' => 'required',
+            'driver_id' => 'nullable',
+            'assistant_id' => 'nullable'
+        ]));
+         
+        return redirect()->route('vehicles.index')->with('success', 'Record created successfully');
     }
 
     /**
