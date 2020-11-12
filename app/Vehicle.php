@@ -8,12 +8,13 @@ class Vehicle extends Model
 {
     protected $fillable = ['type','plateNo','capacity','driver_id','assistant_id'];
 
-    public function busoperators()
+    public function driver()
     {
-        while ($this->role_id == "3") {
-            return $this->hasMany('App\User');
-        }
+        return $this->hasOne('App\User','id','driver_id');        
+    }
 
-        return back()->with("error","Incorrect Operator-Vehicle connection");
+    public function assistant()
+    {
+        return $this->hasOne('App\User','id','assistant_id');        
     }
 }

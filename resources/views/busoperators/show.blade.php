@@ -13,7 +13,7 @@
                         <li class="breadcrumb-item active">{{ $busoperator->name }}</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Parents</h4>
+                <h4 class="page-title">Bus Operators</h4>
             </div>
         </div>
     </div>     
@@ -23,7 +23,7 @@
         <div class="col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-body">
-                    <p>Parent Details</p><hr>
+                    <p>Bus Operator Details</p><hr>
                     <div class="list-group">
                         <span><b>Name</b> : {{$busoperator->name}}</span><br>
                         <span><b>Phone</b> : {{$busoperator->phone}}</span><br>
@@ -33,10 +33,10 @@
                     <br> <br>
                     <div>
                         <div style="float:left">
-                            <a href="{{ route('parents.edit',$busoperator) }}" class="btn btn-secondary">Edit Parent</a>
+                            <a href="{{ route('busoperators.edit',$busoperator) }}" class="btn btn-secondary">Edit Operator</a>
                         </div>
                         <div style="float:right">
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Delete Parent</button>
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Delete Operator</button>
                         </div> 
                     </div>
                 </div> <!-- end card-body -->
@@ -48,7 +48,7 @@
                 <div class="card-body"> 
                     <div>
                         <div class="mt-2" style="float:left">
-                            <p>Linked children details</p>
+                            <p>Linked Buses details</p>
                         </div>
 
                         <div style="float:right">
@@ -71,14 +71,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-colored-header bg-warning">
-                    <h4 class="modal-title" id="delete-modalLabel">Delete Parent</h4>
+                    <h4 class="modal-title" id="delete-modalLabel">Delete Bus Operator</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="text-center">
                         <p>Are you sure that you want to delete <b>{{$busoperator->name}}</b> ?</p>
                         <i class="dripicons-warning h1 text-warning"></i> <br> <br> 
-                        <p>Deleting this parent removes all links betweens this parent and related pupils</p>
+                        <p>Deleting this Bus Operator removes all links betweens this Bus Operator and related Bus</p>
                     </div>
                 </div>
                 <div class="modal-footer">

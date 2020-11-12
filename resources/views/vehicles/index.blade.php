@@ -31,7 +31,7 @@
                     <th>Plate No.</th>
                     <th>Capacity</th>
                     <th>Driver</th>
-                    <th>Assistant</th>
+                    <th>Bus Assistant</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -50,27 +50,11 @@
                     { name: 'type' },
                     { name: 'plateNo' },
                     { name: 'capacity'},
-                    { name: 'driver_id'},
-                    { name: 'assistant_id'},
+                    { name: 'driver'},
+                    { name: 'assistant'},
                     { name: 'action' , orderable: false, searchable: false }                                
                 ]
             });
-
-            // $('#child-laratable tbody').on('click', 'tr', function () {
-            //     if ( $(this).hasClass('selected') ) {
-            //         $(this).removeClass('selected text-light');
-                    
-            //     }
-            //     else {
-            //         $('#child-laratable').DataTable().$('tr.selected').removeClass('selected text-light');
-            //         $(this).addClass('selected text-light');
-            //     }
-
-            //     var details = $('#child-laratable').DataTable().row( this ).data();
-            //     $("#pupilId").val(details[0]);
-            //     $("#pupilsName").val(details[1]);
-
-            // } );
         });
     </script>
    

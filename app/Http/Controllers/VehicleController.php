@@ -41,8 +41,9 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        $operators = User::where('role_id','3')->get();
-        return view('vehicles.create',['operators'=>$operators]);
+        $drivers = User::where([['role_id','3'],['sub_role','driver']])->get();
+        $assistants = User::where([['role_id','3'],['sub_role','assistant']])->get();
+        return view('vehicles.create',['drivers'=>$drivers, 'assistants'=>$assistants]);
     }
 
     /**
@@ -70,9 +71,10 @@ class VehicleController extends Controller
      * @param  \App\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function show(Vehicle $vehicle)
+    public function show($id)
     {
-        //
+        $vehicle = Vehicle::find($id);
+        return view('vehicles.show',['vehicle'=>$vehicle]);
     }
 
     /**
@@ -81,9 +83,12 @@ class VehicleController extends Controller
      * @param  \App\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vehicle $vehicle)
+    public function edit($id)
     {
-        //
+        $vehicle = Vehicle::find($id);
+        $drivers = User::where([['role_id','3'],['sub_role','driver']])->get();
+        $assistants = User::where([['role_id','3'],['sub_role','assistant']])->get();
+        return view('vehicles.edit',['vehicle'=>$vehicle, 'drivers'=>$drivers, 'assistants'=>$assistants]);
     }
 
     /**

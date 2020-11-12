@@ -63,6 +63,19 @@
                 @endif
             </div>
 
+            <div class="form-group">
+                <label for="sub-role">Sub Role</label>
+                <select class="form-control {{ $errors->has('sub-role') ? ' is-invalid' : '' }}" name="sub-role" id="sub-role">
+                    <option value="driver">Driver</option>
+                    <option value="assistant">Assistant</option>
+                </select>
+                @if ($errors->has('sub-role'))
+                    <span class="invalid-feedback" role="alert">
+                        {{ $errors->first('sub-role') }}
+                    </span>
+                @endif
+            </div>
+
             <input type="hidden" name="role" value="3">
 
             <div class="form-group mb-0 text-center">

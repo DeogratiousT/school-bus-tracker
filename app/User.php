@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'nationalId', 'role_id',
+        'name', 'email', 'password', 'phone', 'nationalId', 'role_id', 'sub_role'
     ];
 
     /**
@@ -71,8 +71,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return back()->with("error","you are ".$this->role);
     }
 
-     public function vehicle()
-     {
-         return $this->belongsTo('App\Vehicle');
-     }
+    //  public function vehicle()
+    //  {
+    //     while ($this->role_id == '3') {
+    //         return $this->belongsTo('App\Vehicle');
+    //     }
+
+    //     return back()->with("error","you are ".$this->role);
+    //  }
 }

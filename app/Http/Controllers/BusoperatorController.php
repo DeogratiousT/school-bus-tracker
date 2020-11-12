@@ -92,6 +92,7 @@ class BusoperatorController extends Controller
             'phone' => 'required',
             'email' => 'required',
             'nationalId' => 'required',
+            'sub_role' => 'required',
         ]));
 
         return redirect()->route('busoperators.show',['busoperator' => $busoperator])->with('success',$request->name.' details updated');

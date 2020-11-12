@@ -61,15 +61,29 @@
             </div>
 
             <div class="form-group">
-                <label for="driver">Driver</label>
-                <select class="form-control {{ $errors->has('driver') ? ' is-invalid' : '' }}" name="driver" id="driver">
-                    @foreach ($operators as $operator)
-                        <option value="{{ $operator->name }}">{{ $operator->name }}</option> 
+                <label for="driver_id">Driver</label>
+                <select class="form-control {{ $errors->has('driver_id') ? ' is-invalid' : '' }}" name="driver_id" id="driver_id">
+                    @foreach ($drivers as $driver)
+                        <option value="{{ $driver->id }}">{{ $driver->name }}</option> 
                     @endforeach
                 </select>
-                @if ($errors->has('driver'))
+                @if ($errors->has('driver_id'))
                     <span class="invalid-feedback" role="alert">
-                        {{ $errors->first('driver') }}
+                        {{ $errors->first('driver_id') }}
+                    </span>
+                @endif
+            </div>
+
+            <div class="form-group">
+                <label for="assistant_id">Assistant</label>
+                <select class="form-control {{ $errors->has('assistant_id') ? ' is-invalid' : '' }}" name="assistant_id" id="assistant_id">
+                    @foreach ($assistants as $assistant)
+                        <option value="{{ $assistant->id }}">{{ $assistant->name }}</option> 
+                    @endforeach
+                </select>
+                @if ($errors->has('assistant_id'))
+                    <span class="invalid-feedback" role="alert">
+                        {{ $errors->first('assistant_id') }}
                     </span>
                 @endif
             </div>

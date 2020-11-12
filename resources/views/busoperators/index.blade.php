@@ -34,6 +34,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>National Id</th>
+                            <th>Role</th>
                             <th style="width: 85px;">Action</th>
                         </tr>
                     </thead>
@@ -53,6 +54,7 @@
                             { name: 'email'},
                             { name: 'phone' },
                             { name: 'nationalId' },
+                            { name: 'sub_role'},
                             { name: 'action', orderable: false, searchable: false, className: "table-action" },
                         ],
                     });
